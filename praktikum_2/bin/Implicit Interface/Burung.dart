@@ -1,4 +1,3 @@
-// Burung.dart
 import 'Hewan.dart';
 import 'Flyable.dart';
 
