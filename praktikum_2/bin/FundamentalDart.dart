@@ -1,7 +1,7 @@
 void main() {
   print('Hello, World!');
 
-  String name = 'Puspita';
+  String name = 'Khakim';
   int year = 2023;
   List<String> bulan = ['Januari', 'Februari', 'Maret', 'April'];
   Map<String, dynamic> image = {
@@ -10,7 +10,7 @@ void main() {
   };
 
   String greetings = 'Hello Dart!';
-  int anotherYear = 2023;
+  int anotherYear = 2024;
 
   print("");
   print('$name');
