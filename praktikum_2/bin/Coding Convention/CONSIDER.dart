@@ -4,7 +4,7 @@ void main() {
   if (login.checkSuccess()) {}
 
   // "Hallo! Selamat datang kembali"
-  Garfield garfield = Garfield(); // Anda perlu menginisialisasi objek Garfield
+  Garfield garfield = Garfield();
   garfield.eat();
 }
 
