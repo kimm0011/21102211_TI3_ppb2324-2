@@ -11,7 +11,8 @@ class OnBoardingPage extends StatelessWidget {
     return Scaffold(
       body: Container(
         color: kBgColor.withOpacity(0.5),
-        child: SingleChildScrollView( // Wrap Column with SingleChildScrollView
+        child: SingleChildScrollView(
+          // Wrap Column with SingleChildScrollView
           child: Column(
             children: [
               SafeArea(
