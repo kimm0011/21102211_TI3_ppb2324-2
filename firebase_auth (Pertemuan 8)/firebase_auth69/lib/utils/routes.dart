@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/ui/home_screen.dart';
-import 'package:firebase_auth/ui/login.dart';
-import 'package:firebase_auth/ui/register.dart';
+import 'package:firebase_auth69/ui/home_screen.dart';
+import 'package:firebase_auth69/ui/login.dart';
+import 'package:firebase_auth69/ui/register.dart';
 
 MaterialPageRoute _pageRoute(
         {required Widget body, required RouteSettings settings}) =>

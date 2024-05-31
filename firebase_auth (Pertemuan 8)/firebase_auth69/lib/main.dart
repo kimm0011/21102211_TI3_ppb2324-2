@@ -1,9 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth69/ui/home_screen.dart';
+import 'package:firebase_auth69/ui/login.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:firebase_auth/bloc/login/login_cubit.dart';
-import 'package:firebase_auth/ui/splash.dart';
-import 'package:firebase_auth/utils/routes.dart';
+import 'package:firebase_auth69/bloc/login/login_cubit.dart';
+import 'package:firebase_auth69/ui/splash.dart';
+import 'package:firebase_auth69/utils/routes.dart';
 import 'bloc/register/register_cubit.dart';
 import 'firebase_options.dart';
 

@@ -1,46 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:firebase_auth/bloc/login/login_cubit.dart';
+import 'package:firebase_auth69/bloc/register/register_cubit.dart';
 
 import '../utils/routes.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({Key? key}) : super(key: key);
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
   final emailEdc = TextEditingController();
   final passEdc = TextEditingController();
   bool passInvisible = false;
-
-  Future<UserCredential> signInWithGoogle() async {
-    final GoogleSignInAccount? gUser = await GoogleSignIn().signIn();
-    final GoogleSignInAuthentication gAuth = await gUser!.authentication;
-    final credential = GoogleAuthProvider.credential(
-      accessToken: gAuth.accessToken,
-      idToken: gAuth.idToken,
-    );
-    return await FirebaseAuth.instance.signInWithCredential(credential).then(
-        (value) async => await Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (context) => HomeScreen()),
-            (route) => false));
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocListener<LoginCubit, LoginState>(
+      body: BlocListener<RegisterCubit, RegisterState>(
         listener: (context, state) {
-          if (state is LoginLoading) {
+          if (state is RegisterLoading) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(SnackBar(content: Text('Loading..')));
           }
-          if (state is LoginFailure) {
+          if (state is RegisterFailure) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(SnackBar(
@@ -48,7 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 backgroundColor: Colors.red,
               ));
           }
-          if (state is LoginSuccess) {
+          if (state is RegisterSuccess) {
             // context.read<AuthCubit>().loggedIn();
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
@@ -56,7 +41,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 content: Text(state.msg),
                 backgroundColor: Colors.green,
               ));
-            Navigator.pushNamedAndRemoveUntil(context, rHome, (route) => false);
+            Navigator.pushNamedAndRemoveUntil(
+                context, rLogin, (route) => false);
           }
         },
         child: Container(
@@ -64,7 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
           child: ListView(
             children: [
               Text(
-                "Login",
+                "Register",
                 style: TextStyle(
                     fontSize: 40,
                     fontWeight: FontWeight.bold,
@@ -105,12 +91,14 @@ class _LoginScreenState extends State<LoginScreen> {
                         : Icons.visibility_off),
                     onPressed: () {
                       setState(() {
-                        passInvisible = !passInvisible;
+                        passInvisible =
+                            !passInvisible; // Toggle _isPasswordVisible ketika ikon mata ditekan
                       });
                     },
                   ),
                 ),
-                obscureText: !passInvisible,
+                obscureText:
+                    !passInvisible, // Atur obscureText berdasarkan _isPasswordVisible
               ),
               SizedBox(
                 height: 50,
@@ -118,63 +106,33 @@ class _LoginScreenState extends State<LoginScreen> {
               ElevatedButton(
                   onPressed: () {
                     context
-                        .read<LoginCubit>()
-                        .login(email: emailEdc.text, password: passEdc.text);
+                        .read<RegisterCubit>()
+                        .register(email: emailEdc.text, password: passEdc.text);
                   },
                   style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xff3D4DE0),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10))),
                   child: Text(
-                    "Login",
+                    "Register",
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 24,
                         color: Colors.white),
                   )),
-              const SizedBox(
-                height: 30.0,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      signInWithGoogle();
-                    },
-                    child: const CircleAvatar(
-                      radius: 20.0,
-                      backgroundImage: NetworkImage(
-                          'https://img2.pngdownload.id/20190228/qby/kisspng-google-logo-google-account-g-suite-google-images-g-icon-archives-search-png-5c77ad39b77471.9286340315513470017515.jpg'),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 30.0,
-                  ),
-                  GestureDetector(
-                    onTap: () {},
-                    child: const CircleAvatar(
-                      radius: 20.0,
-                      backgroundImage: NetworkImage(
-                          'https://freepngimg.com/thumb/business/83615-blue-icons-symbol-telephone-computer-logo.png'),
-                    ),
-                  )
-                ],
-              ),
               SizedBox(
                 height: 25,
               ),
               Row(
-                mainAxisAlignment:
-                    MainAxisAlignment.center, // Menengahkan elemen horizontal
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Belum punya akun ?"),
+                  Text("Sudah punya akun ?"),
                   TextButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, '/register');
+                        Navigator.pushNamed(context, '/login');
                       },
                       child: Text(
-                        "Daftar",
+                        "Login",
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Color(0xff3D4DE0)),
